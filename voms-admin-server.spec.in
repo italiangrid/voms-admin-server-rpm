@@ -51,14 +51,14 @@ tar -C $RPM_BUILD_ROOT -xvzf target/%{name}.tar.gz
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/voms-admin
 
 # Stage oracle jar
-cp `find /usr/lib/oracle/ -name ojdbc14.jar` $RPM_BUILD_ROOT%{_sharedstatedir}/voms-admin/lib
+cp `find /usr/lib/oracle/ -name ojdbc14.jar` $RPM_BUILD_ROOT/var/lib/voms-admin/lib
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-if [ -d "%{_sharedstatedir}/voms-admin/lib" ]; then
-	rm -rf %{_sharedstatedir}/voms-admin/lib/*.jar 
+if [ -d "/var/lib/voms-admin/lib" ]; then
+	rm -rf /var/lib/voms-admin/lib/*.jar 
 fi
 exit 0
 
@@ -82,9 +82,11 @@ exit 0
 %{_javadir}/voms-admin.jar
 %{_datadir}/webapps/voms-admin.war
 
-%doc resources/doc/*
-
+%{_datadir}/doc/voms-admin-server/* 
 %{_datadir}/voms-admin/*
+/var/lib/voms-admin/lib/*.jar
+/var/lib/voms-admin/tools/*
+
 
 %changelog
 * Wed Jul 11 2012 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.0-1
