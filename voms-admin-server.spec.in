@@ -3,7 +3,7 @@
 
 %global pom_version @@POM_VERSION@@
 %global mvn_settings @@MVN_SETTINGS@@
-%global jar_names   @@JAR_NAMES@@
+%global python_version @@PYTHON@@
 
 Name: voms-admin-server
 Version: 3.0.0 
@@ -24,6 +24,7 @@ BuildRequires:  java-devel
 BuildRequires:  oracle-instantclient-basic
 
 Requires: java
+Requires: python(abi) = 2.6 
 
 %description
 The Virtual Organization Membership Service (VOMS) is an attribute authority
@@ -41,7 +42,7 @@ administration tasks.
 %setup -n voms-admin-server
 
 %build
-mvn -B %{mvn_settings} package
+mvn %{mvn_settings} package
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -50,6 +51,8 @@ tar -C $RPM_BUILD_ROOT -xvzf target/%{name}.tar.gz
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/voms-admin
 
+mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/voms-admin
+
 # Stage oracle jar
 cp `find /usr/lib/oracle/ -name ojdbc14.jar` $RPM_BUILD_ROOT/var/lib/voms-admin/lib
 
@@ -57,16 +60,31 @@ cp `find /usr/lib/oracle/ -name ojdbc14.jar` $RPM_BUILD_ROOT/var/lib/voms-admin/
 rm -rf $RPM_BUILD_ROOT
 
 %pre
+
+## Create VOMS user if needed
+getent group voms > /dev/null || groupadd -r voms
+getent passwd voms > /dev/null || useradd -r -g voms \
+    -d %{_sysconfdir}/voms -s /sbin/nologin -c "VOMS Server Account" voms
+
 if [ -d "/var/lib/voms-admin/lib" ]; then
 	rm -rf /var/lib/voms-admin/lib/*.jar 
 fi
 exit 0
 
+%post 
+/sbin/chkconfig --add voms-admin
+
 %preun
-echo "Stopping potentially running voms-admin instances..."
-%{_initrddir}/voms-admin stop
+if [ $1 = 0 ]; then
+    /sbin/service voms-admin stop >/dev/null 2>&1 || :
+    /sbin/chkconfig --del voms-admin
+fi
 exit 0
 
+%postun
+if [ $1 -ge 1 ]; then
+    /sbin/service voms-admin restart 2>&1 || :
+fi
 
 %files
 
@@ -86,7 +104,7 @@ exit 0
 %{_datadir}/voms-admin/*
 /var/lib/voms-admin/lib/*.jar
 /var/lib/voms-admin/tools/*
-
+%attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
 
 %changelog
 * Wed Jul 11 2012 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.0-1

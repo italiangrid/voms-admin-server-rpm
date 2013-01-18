@@ -25,8 +25,8 @@ mirror_conf_name=mirror-settings.xml
 # directory where jar deps will be searched for
 libs_dir=/var/lib/$(name)/lib
 
-# name of the jar files which make the dependencies
-jar_names=voms-clients bcprov-1.46 bcmail-1.46 canl voms-api-java3 commons-io commons-lang
+# python runtime dep
+python=python26
 
 # maven build options
 mvn_settings=-U -s $(mirror_conf_name) -DskipTests
@@ -40,12 +40,12 @@ print-info:
 	@echo
 	@echo "Packaging $(name) fetched from $(git) for tag $(tag)."
 	@echo "Maven settings: $(mvn_settings)"
-	@echo "Jar names: $(jar_names)"
 	@echo
 
 prepare-sources: sanity-checks clean
 	@mkdir -p $(source_dir)/$(name)
 	git clone $(git) $(source_dir)/$(name) 
+	cd $(source_dir)/$(name) && git checkout $(tag)
 	@cd $(source_dir)/$(name) && git archive --format=tar --prefix=$(name)/ $(tag) > $(name).tar
 	# Maven mirror settings 
 	wget $(mirror_conf_url) -O $(source_dir)/$(name)/$(mirror_conf_name)
@@ -55,7 +55,7 @@ prepare-sources: sanity-checks clean
 prepare-spec: prepare-sources
 	sed -e 's#@@MVN_SETTINGS@@#$(mvn_settings)#g' \
     	-e 's#@@POM_VERSION@@#$(pom_version)#g' \
-		-e 's#@@JAR_NAMES@@#$(jar_names)#g' \
+    	-e 's#@@PYTHON@@#$(python)#g' \
 		$(spec_src) > $(spec)
 
 rpm: prepare-spec
