@@ -20,7 +20,7 @@ BuildArch:      noarch
 
 BuildRequires:  maven
 BuildRequires:  jpackage-utils
-BuildRequires:  java-devel
+BuildRequires:  java-1.6.0-openjdk-devel
 BuildRequires:  oracle-instantclient-basic
 
 Requires: java-1.6.0-openjdk-devel
