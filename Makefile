@@ -48,7 +48,7 @@ prepare-sources: sanity-checks clean
 	cd $(source_dir)/$(name) && git checkout $(tag)
 	@cd $(source_dir)/$(name) && git archive --format=tar --prefix=$(name)/ $(tag) > $(name).tar
 	# Maven mirror settings 
-	wget $(mirror_conf_url) -O $(source_dir)/$(name)/$(mirror_conf_name)
+	wget --no-check-certificate $(mirror_conf_url) -O $(source_dir)/$(name)/$(mirror_conf_name)
 	@cd $(source_dir) && tar -r -f $(name)/$(name).tar $(name)/$(mirror_conf_name) && gzip $(name)/$(name).tar
 	@cp $(source_dir)/$(name)/$(name).tar.gz $(source_dir)/$(name).tar.gz
 
