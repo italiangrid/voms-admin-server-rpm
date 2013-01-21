@@ -23,7 +23,7 @@ BuildRequires:  jpackage-utils
 BuildRequires:  java-devel
 BuildRequires:  oracle-instantclient-basic
 
-Requires: java
+Requires: java-1.6.0-openjdk
 Requires: python(abi) = 2.6 
 
 %description
