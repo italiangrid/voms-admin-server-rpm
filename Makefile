@@ -28,6 +28,12 @@ libs_dir=/var/lib/$(name)/lib
 # python runtime dep
 python=python26
 
+# Oracle libs prefix path
+oracle_path=/usr/lib64/oracle
+
+# Oracle jar name
+oracle_jar=ojdbc6.jar
+
 # maven build options
 mvn_settings=-U -s $(mirror_conf_name) -DskipTests
 
@@ -56,6 +62,8 @@ prepare-spec: prepare-sources
 	sed -e 's#@@MVN_SETTINGS@@#$(mvn_settings)#g' \
     	-e 's#@@POM_VERSION@@#$(pom_version)#g' \
     	-e 's#@@PYTHON@@#$(python)#g' \
+    	-e 's#@@ORACLE_PATH@@#$(oracle_path)#g' \
+    	-e 's#@@ORACLE_JAR@@#$(oracle_jar)#g' \
 		$(spec_src) > $(spec)
 
 rpm: prepare-spec

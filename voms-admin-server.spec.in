@@ -4,6 +4,8 @@
 %global pom_version @@POM_VERSION@@
 %global mvn_settings @@MVN_SETTINGS@@
 %global python_version @@PYTHON@@
+%global oracle_libs_path @@ORACLE_PATH@@
+%global oracle_jar_name @@ORACLE_JAR@@
 
 Name: voms-admin-server
 Version: 3.0.0 
@@ -54,7 +56,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/voms-admin
 mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/voms-admin
 
 # Stage oracle jar
-cp `find /usr/lib/oracle/ -name ojdbc14.jar` $RPM_BUILD_ROOT/var/lib/voms-admin/lib
+cp `find %{oracle_libs_path} -name %{oracle_jar_name}` $RPM_BUILD_ROOT/var/lib/voms-admin/lib
 
 %clean
 rm -rf $RPM_BUILD_ROOT
