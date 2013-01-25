@@ -81,7 +81,7 @@ if [ $1 -ge 1 ]; then
         rm -f /etc/voms-admin/voms-siblings.xml
     fi
     chown -R voms /etc/voms-admin
-    chwon -R voms /var/tmp/voms-admin
+    chown -R voms /var/tmp/voms-admin
 fi
 
 %preun
