@@ -76,6 +76,14 @@ exit 0
 %post 
 /sbin/chkconfig --add voms-admin
 
+if [ $1 -ge 1 ]; then
+    if [ -e /etc/voms-admin/voms-siblings.xml ]; then
+        rm -f /etc/voms-admin/voms-siblings.xml
+    fi
+    chown -R voms /etc/voms-admin
+    chwon -R voms /var/tmp/voms-admin
+fi
+
 %preun
 if [ $1 = 0 ]; then
     /sbin/service voms-admin stop >/dev/null 2>&1 || :
