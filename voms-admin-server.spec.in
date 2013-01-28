@@ -76,7 +76,7 @@ exit 0
 %post 
 /sbin/chkconfig --add voms-admin
 
-if [ $1 -ge 1 ]; then
+if [ $1 -gt 1 ]; then
     if [ -e /etc/voms-admin/voms-siblings.xml ]; then
         rm -f /etc/voms-admin/voms-siblings.xml
     fi
