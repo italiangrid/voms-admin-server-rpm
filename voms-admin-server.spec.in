@@ -92,7 +92,7 @@ fi
 exit 0
 
 %postun
-if [ $1 -ge 1 ]; then
+if [ $1 -gt 1 ]; then
     /sbin/service voms-admin restart 2>&1 || :
 fi
 
@@ -101,6 +101,7 @@ fi
 %defattr(-,root,root,-)
 
 %{_initrddir}/voms-admin
+%{_initrddir}/vomses
 
 %dir %{_sysconfdir}/voms-admin
 %config(noreplace) %{_sysconfdir}/sysconfig/voms-admin
