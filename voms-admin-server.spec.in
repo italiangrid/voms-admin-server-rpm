@@ -101,14 +101,17 @@ fi
 %defattr(-,root,root,-)
 
 %{_initrddir}/voms-admin
-%{_initrddir}/vomses
 
 %dir %{_sysconfdir}/voms-admin
 %config(noreplace) %{_sysconfdir}/sysconfig/voms-admin
 
+%config(noreplace) %{_sysconfdir}/voms-admin/voms-admin-server.logback
+%config(noreplace) %{_sysconfdir}/voms-admin/voms-admin-server.properties
+
 %{_sbindir}/*
 
 %{_javadir}/voms-admin.jar
+%{_javadir}/voms-container.jar
 %{_datadir}/webapps/voms-admin.war
 
 %{_datadir}/doc/voms-admin-server/* 
@@ -119,7 +122,7 @@ fi
 
 %changelog
 * Tue Mar 19 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.1-1
-- Fixes for buggy vomses startup script
+- Single-process embedded container
 
 * Wed Jul 11 2012 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.0-1
 - VOMS admin now runs as a process in an embedded container 
