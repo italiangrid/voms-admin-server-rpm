@@ -35,7 +35,7 @@ oracle_path=/usr/lib64/oracle
 oracle_jar=ojdbc6.jar
 
 # maven build options
-mvn_settings=-U -s $(mirror_conf_name) -DskipTests
+mvn_settings=-U -s $(mirror_conf_name) -DskipTests -P prod
 
 .PHONY: clean rpm
 
