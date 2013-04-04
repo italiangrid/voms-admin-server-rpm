@@ -8,7 +8,7 @@
 %global oracle_jar_name @@ORACLE_JAR@@
 
 Name: voms-admin-server
-Version: 3.0.1 
+Version: 3.1.0 
 Release: 1%{?dist}
 Summary: The VOMS Administration service
 
@@ -121,8 +121,13 @@ fi
 %attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
 
 %changelog
-* Tue Mar 19 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.1-1
-- Single-process embedded container
+* Tue Mar 19 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.1.0-1
+- Fixes for the following bugs:
+- [VOMS-229] - VOMSES startup script fails in restarting VOMSES web app
+- [VOMS-230] - VOMS Admin service incorrectly parses truststore refresh period from configuration
+- [VOMS-231] - Standalone VOMS Admin service deployment is not suitable for deployments with large number of VOs (> 10)
+- New feature:
+- [VOMS-235] - Allow easier search of users with pending Sign AUP requests
 
 * Wed Jul 11 2012 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.0.0-1
 - VOMS admin now runs as a process in an embedded container 
