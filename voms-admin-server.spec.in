@@ -8,7 +8,7 @@
 %global oracle_jar_name @@ORACLE_JAR@@
 
 Name: voms-admin-server
-Version: 3.1.0 
+Version: 3.2.0 
 Release: 1%{?dist}
 Summary: The VOMS Administration service
 
@@ -121,6 +121,12 @@ fi
 %attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
 
 %changelog
+* Tue Jun 25 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.2.0-1
+- Fixes for:
+- https://issues.infn.it/jira/browse/VOMS-266
+- https://issues.infn.it/jira/browse/VOMS-260
+- https://issues.infn.it/jira/browse/VOMS-257
+
 * Tue Mar 19 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.1.0-1
 - Fixes for the following bugs:
 - [VOMS-229] - VOMSES startup script fails in restarting VOMSES web app
