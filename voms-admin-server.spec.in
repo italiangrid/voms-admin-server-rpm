@@ -8,8 +8,8 @@
 %global oracle_jar_name @@ORACLE_JAR@@
 
 Name: voms-admin-server
-Version: 3.2.0 
-Release: 1%{?dist}
+Version: 3.3.0 
+Release: 0%{?dist}
 Summary: The VOMS Administration service
 
 Group:		Applications/Internet
@@ -121,6 +121,9 @@ fi
 %attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
 
 %changelog
+* Tue Sep 10 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.3.0-0
+- Placeholder for changelog in preparation
+
 * Tue Jun 25 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.2.0-1
 - Fixes for:
 - https://issues.infn.it/jira/browse/VOMS-266
