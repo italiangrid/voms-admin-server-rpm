@@ -1,21 +1,34 @@
 ## Turn off meaningless jar repackaging 
 %define __jar_repack 0
 
+%global base_version 3.3.0
+%global base_release 1
+
 %global pom_version @@POM_VERSION@@
 %global mvn_settings @@MVN_SETTINGS@@
 %global python_version @@PYTHON@@
 %global oracle_libs_path @@ORACLE_PATH@@
 %global oracle_jar_name @@ORACLE_JAR@@
 
+
+
+%if %{?build_number:1}%{!?build_number:0}
+%define package_version %{base_version}.dev.%{build_number}
+%define release_version 0
+%else
+%define package_version %{base_version}
+%define release_version %{base_release}
+%endif
+
 Name: voms-admin-server
-Version: 3.3.0 
-Release: 0%{?dist}
+Version: %{package_version}
+Release: %{release_version}%{?dist}
 Summary: The VOMS Administration service
 
 Group:		Applications/Internet
 License:    ASL 2.0
 URL: https://twiki.cnaf.infn.it/twiki/bin/view/VOMS
-Source:  %{name}-%{version}.tar.gz
+Source:  %{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
