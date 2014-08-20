@@ -10,8 +10,6 @@
 %global oracle_libs_path @@ORACLE_PATH@@
 %global oracle_jar_name @@ORACLE_JAR@@
 
-
-
 %if %{?build_number:1}%{!?build_number:0}
 %define package_version %{base_version}.dev.%{build_number}
 %define release_version 0
@@ -128,7 +126,19 @@ fi
 %{_datadir}/webapps/voms-admin.war
 
 %{_datadir}/doc/voms-admin-server/* 
-%{_datadir}/voms-admin/*
+
+%dir %{_datadir}/voms-admin/info-providers
+%{_datadir}/voms-admin/info-providers/*
+
+%dir %{_datadir}/voms-admin/templates
+%{_datadir}/voms-admin/templates/*
+
+%dir %{_datadir}/voms-admin/wsdls
+%{_datadir}/voms-admin/wsdls/*
+
+%dir %{_datadir}/voms-admin/vo.d
+%attr(-,voms,voms) %{_datadir}/voms-admin/work
+
 /var/lib/voms-admin/lib/*.jar
 /var/lib/voms-admin/tools/*
 %attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
