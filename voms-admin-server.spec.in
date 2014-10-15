@@ -144,8 +144,8 @@ fi
 %attr(-,voms,voms) %dir %{_localstatedir}/log/voms-admin
 
 %changelog
-* Tue Sep 10 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.3.0-0
-- Placeholder for changelog in preparation
+* Tue Sep 10 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.3.0-1
+- Bumped version to 3.3.0.
 
 * Tue Jun 25 2013 Andrea Ceccanti <andrea.ceccanti at cnaf.infn.it> - 3.2.0-1
 - Fixes for:
